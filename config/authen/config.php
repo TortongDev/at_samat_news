@@ -5,12 +5,10 @@
     $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
     $dotenv->load();
 
-    define("HOSTNAME",$_ENV['HOSTNAME']);
-    define("USERNAME",$_ENV['USERNAME']);
-    define("PASSWORD",$_ENV['PASSWORD']);
-    define("DBNAME"  ,$_ENV['DBNAME']);
-    define("DB_TYPE" ,"MYSQL");
+    define("PRIVATE_KEY",$_ENV['PRIVATE_KEY']);
+    define("IV",$_ENV['IV']);
 
+    echo PRIVATE_KEY;
     
     
 ?>

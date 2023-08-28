@@ -1,6 +1,3 @@
 <?php
 
-
-$inc = require ".env.php";
-// $inc
-var_dump($inc['OBJ1']);
+// อ่านข้อมูลจากไฟล์ .env
