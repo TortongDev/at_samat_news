@@ -5,7 +5,6 @@
     $stmt = $get->pdo->prepare("SELECT * FROM `samat_news` WHERE ?");
     $stmt->execute(array("1=1"));
     
-
     $secret_key = "getter";
     $arrJsonData = array();
 

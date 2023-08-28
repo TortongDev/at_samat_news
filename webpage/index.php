@@ -44,14 +44,14 @@
                 
             }
         },mounted() {
-            fetch('http://localhost/at_samat_news/services/get_news_new/get.php')
+            fetch('http://localhost/at_samat_news/services/get_news/getNews.php')
             .then(response => response.json())
             .then((data)=>{
                 this.content = data
             })
             .catch(error => console.log(error));
 
-            fetch('http://localhost/at_samat_news/services/get_news_new/get_news_popular.php')
+            fetch('http://localhost/at_samat_news/services/get_news/getNewsPopular.php')
             .then(response => response.json())
             .then((data)=>{
                 this.news_popular = data
@@ -65,6 +65,8 @@
                 this.menu = data
             })
             .catch(error => console.log(error));
+
+            
         },methods: {
            
             adder(){

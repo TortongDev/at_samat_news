@@ -1,5 +1,12 @@
 <?php
-
+;
+$HTTP_REFERER = 'http://localhost/atsamat/at_samat_news/webpage/';
+if(@$_SERVER['HTTP_REFERER'] != $HTTP_REFERER){
+    http_response_code(400);
+    exit;
+}else{
+    http_response_code(200);
+}
 $menu = array (
     array(
         "menu"         => "หน้าแรก",
@@ -24,5 +31,10 @@ $menu = array (
     
 
 );
-echo json_encode($menu);
+function menuOption($menu){
+    return json_encode($menu);
+}
+echo menuOption($menu);
+
+
 ?>
