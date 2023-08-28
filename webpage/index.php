@@ -12,7 +12,6 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>PAGE ONE</title>
-
 </head>
 <body>
     <div id="wrapper">
@@ -44,14 +43,14 @@
                 
             }
         },mounted() {
-            fetch('http://localhost/at_samat_news/services/get_news/getNews.php')
+            fetch('../services/news/getNews.php')
             .then(response => response.json())
             .then((data)=>{
                 this.content = data
             })
             .catch(error => console.log(error));
 
-            fetch('http://localhost/at_samat_news/services/get_news/getNewsPopular.php')
+            fetch('../services/news/getNewsPopular.php')
             .then(response => response.json())
             .then((data)=>{
                 this.news_popular = data
@@ -66,7 +65,7 @@
             })
             .catch(error => console.log(error));
 
-            
+
         },methods: {
            
             adder(){

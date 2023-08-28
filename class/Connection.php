@@ -31,8 +31,8 @@
                 
             } catch (PDOException $err) {
                 echo $err->getMessage();
-         
             } finally {
+                
             }
         }
         

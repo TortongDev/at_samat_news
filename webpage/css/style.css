@@ -1,19 +1,21 @@
-@import url('https://fonts.googleapis.com/css2?family=Niramit:ital,wght@0,200;0,300;0,400;1,200;1,300&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Niramit:ital,wght@0,200;0,300;0,400;1,200;1,300&display=swap'); */
+/* @import url('https://fonts.googleapis.com/css2?family=Charm:wght@400;700&family=Inconsolata:wght@200;300;400;500;600;700;800&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Charm:wght@400;700&family=Inconsolata:wght@200;300;400;500;600;700;800&display=swap');
 :root {
     --bg: rgb(255, 255, 255);
-    --bg_wrapper: whitesmoke;
+    --bg_wrapper: rgb(255, 255, 255);
 }
 html,body {
     margin: 0;
     background-color: var(--bg);
-    font-family: 'Niramit', sans-serif;
+    font-family: 'Charm', cursive;
 }
 #wrapper {
     background-color: var(--bg);
 }
 header {
     height: 50px;
-    background-color: rgb(252, 252, 252);
+    background-color: rgb(235, 235, 235);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -120,6 +122,7 @@ aside .topic {
     padding-inline: 18px;
 }
 article .topic {
+    background-color: var(--bg_wrapper);
     display: flex;
     align-items: center;
     justify-content: space-between;
