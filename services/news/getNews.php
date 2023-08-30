@@ -36,6 +36,7 @@
         $encrypted = openssl_encrypt($r['NEW_ID'], 'aes-128-gcm', PRIVATE_KEY , OPENSSL_RAW_DATA, IV ,$tag);
         $arrJsonData[] = array( 
             'NEW_ID'            => $r['NEW_ID'],
+            
             'NEW_ID_ENCYPT'     => base64_encode($encrypted),
             'NEW_TOPIC'         => $r['NEW_TOPIC'],
             'NEW_SUB_TOPIC'     => $r['NEW_SUB_TOPIC'],
