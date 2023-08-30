@@ -1,6 +1,4 @@
-/* @import url('https://fonts.googleapis.com/css2?family=Niramit:ital,wght@0,200;0,300;0,400;1,200;1,300&display=swap'); */
-/* @import url('https://fonts.googleapis.com/css2?family=Charm:wght@400;700&family=Inconsolata:wght@200;300;400;500;600;700;800&display=swap'); */
-@import url('https://fonts.googleapis.com/css2?family=Charm:wght@400;700&family=Inconsolata:wght@200;300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@100;200;300&display=swap');
 :root {
     --bg: rgb(255, 255, 255);
     --bg_wrapper: rgb(255, 255, 255);
@@ -8,14 +6,16 @@
 html,body {
     margin: 0;
     background-color: var(--bg);
-    font-family: 'Charm', cursive;
+    font-family: 'IBM Plex Sans Thai', sans-serif;
 }
 #wrapper {
     background-color: var(--bg);
 }
 header {
+    top: 0;
+    position: sticky;
     height: 50px;
-    background-color: rgb(235, 235, 235);
+    background-color: rgb(224, 232, 247);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -40,7 +40,9 @@ header ul li a {
     display: flex;
     justify-content: center;
     align-items: center;
+    color: white;
     flex-direction: column;
+    font-weight: bolder;
 }
 main {
     height: 100%;
@@ -107,14 +109,14 @@ h5 {
 aside ul li a {
     text-decoration: none;
     color: rgb(35, 104, 168) !important;
-    font-weight: bold;
 }
 a {
+    font-weight: 500;
     text-decoration: none !important;
     color: rgb(35, 104, 168) !important;
-    font-weight: bold;
 }
 aside .topic {
+    font-weight: 800;
     display: flex;
     align-items: center;
     justify-content: space-between;

@@ -1,5 +1,6 @@
 <?php
     require_once "../../autoload_class.php";
+    require_once "../../config/key/config.php";
     header("Content-type: application/json; charset=utf-8");
     $get = new Connection(true);
     $stmt = $get->pdo->prepare("SELECT * FROM `samat_news` WHERE ?");

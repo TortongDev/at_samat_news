@@ -1,11 +1,13 @@
 <?php
 ;
 $HTTP_REFERER = 'http://localhost/atsamat/at_samat_news/webpage/';
-if(@$_SERVER['HTTP_REFERER'] != $HTTP_REFERER){
+$HTTP_REFERER1 = 'http://localhost/atsamat/at_samat_news/webpage/index.php';
+if(@$_SERVER['HTTP_REFERER'] === $HTTP_REFERER || @$_SERVER['HTTP_REFERER'] === $HTTP_REFERER1){
+    http_response_code(200);
+    
+}else{
     http_response_code(400);
     exit;
-}else{
-    http_response_code(200);
 }
 $menu = array (
     array(
