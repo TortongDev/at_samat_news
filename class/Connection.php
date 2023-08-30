@@ -32,7 +32,6 @@
             } catch (PDOException $err) {
                 echo $err->getMessage();
             } finally {
-                
             }
         }
         
@@ -57,5 +56,5 @@
             return $stmt_query;
         }
     }
-
+new Connection(true);
 ?>

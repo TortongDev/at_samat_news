@@ -4,10 +4,10 @@ require "../vendor/autoload.php";
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 // ใช้งานค่าจากไฟล์ .env
-$dbHost     = $_ENV['DB_HOST'];
-$dbUsername = $_ENV['DB_USERNAME'];
-$dbPassword = $_ENV['DB_PASSWORD'];
-$apiKey     = $_ENV['API_KEY'];
+$dbHost     = $_ENV['HOSTNAME'];
+$dbUsername = $_ENV['USERNAME'];
+$dbPassword = $_ENV['PASSWORD'];
+$apiKey     = $_ENV['DBNAME'];
 
 echo $dbHost;
 ?>
