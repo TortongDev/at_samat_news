@@ -1,17 +1,40 @@
 <?php
     require_once "../../autoload_class.php";
     require_once "../../config/key/config.php";
+
+    if(
+        @$_SERVER['HTTP_REFERER'] === 'http://localhost/atsamat/at_samat_news/webpage/index.php' 
+        || 
+        @$_SERVER['HTTP_REFERER'] === 'http://localhost/atsamat/at_samat_news/webpage/' ):
+    else:
+        http_response_code(404);
+        exit;
+    endif;
     header("Content-type: application/json; charset=utf-8");
     $get = new Connection(true);
-    $stmt = $get->pdo->prepare("SELECT * FROM `samat_news` WHERE ?");
-    $stmt->execute(array("1=1"));
-    
+    $setpage = isset($_GET['pages']) ? $_GET['pages'] : '0';
+   
+
+    $stmtCount = $get->pdo->query("SELECT * FROM `samat_news` ");
+    $count = $stmtCount->rowCount();
+    $pageNumber =  ceil( $count  /5 );
+    if($setpage == '1'){
+        $page = 0;
+    }else{
+        $page = ($setpage*$pageNumber)+1;
+    }
+    if($setpage < 1 ):
+        $stmt = $get->pdo->prepare("SELECT * FROM `samat_news` WHERE ? LIMIT 5 offset 0");
+        $stmt->execute(array("1=1"));
+    else:
+        $stmt = $get->pdo->prepare("SELECT * FROM `samat_news` WHERE ? LIMIT 5 offset {$page}");
+        $stmt->execute(array("1=1"));
+    endif;
     $secret_key = "getter";
     $arrJsonData = array();
-
     while ($r = $stmt->fetch(PDO::FETCH_ASSOC)) {
-        $encrypted =  base64_encode(hash_hmac('sha256',$r['NEW_ID'], $secret_key, true));
-        $arrJsonData[] = array(
+        $encrypted =  base64_encode(hash_hmac('sha256',$r['NEW_ID'], 'PRIVATE_KEY' , true));
+        $arrJsonData[] = array( 
             'NEW_ID'            => $r['NEW_ID'],
             'NEW_ID_ENCYPT'     => $encrypted,
             'NEW_TOPIC'         => $r['NEW_TOPIC'],
@@ -23,6 +46,8 @@
             'AUTHEN_ADMIN_ID'   => $r['AUTHEN_ADMIN_ID']
         );
     }
+    $inputShell = date('y/m/d').' => request api.';
+    $shell = exc_shell("echo $inputShell > requestAPINews.txt");
     echo json_encode($arrJsonData);
 
 

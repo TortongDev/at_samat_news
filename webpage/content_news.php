@@ -25,10 +25,22 @@
                 <h6>คนอาจสามารถทั้งอยู่ใกล้อยู่ไกล รวมตัวกันหน่อยเร็วทุกคน</h6>
             </div>
             <div class="wrapper-content">
-                <?php include "./mainpage.php"; ?>
+                <?php
+                    require_once "../config/key/config.php";
+                    $newID = isset($_GET['newID']) ? $_GET['newID'] : '';
+                    echo  $newID;
+                    $signature = base64_decode(hash_hmac('sha256',$newID,'PRIVATE_KEY',true));
+                    // $encrypted =  base64_encode(hash_hmac('sha256',$r['NEW_ID'], PRIVATE_KEY , true));
+                    echo $signature;
                 
+                ?>
                 
-                <?php include "./aside.php"; ?>
+                <article>
+                    <div class="topic"> <h5>อัพเดทล่าสุด <?php echo date('d/m/Y'); ?></h5></div>
+                    <section class="content-new">
+                       
+                    </section>
+                </article>
                 
             </div>
         </main>
@@ -39,50 +51,15 @@
     const app = Vue.createApp({
         data() {
             return {
-                authenusername: '' ,
-                authenpassword: '' ,
-                authenemail: '', 
-                menu: '',
-                content: '',
-                news_popular: '',
-                page:''
-                
+              
             }
         },mounted() {
-            fetch('../services/news/getNews.php?page='+this.page)
-            .then(response => response.json())
-            .then((data)=>{
-                this.content = data
-            })
-            .catch(error => console.log(error));
-
-            fetch('../services/news/getNewsPopular.php')
-            .then(response => response.json())
-            .then((data)=>{
-                this.news_popular = data
-            })
-            .catch(error => console.log(error));
-
-
-           fetch('../config/json/menu.php')
-            .then(response => response.json())
-            .then((data)=>{
-                this.menu = data
-            })
-            .catch(error => console.log(error));
+          
 
 
         },methods: {
            
-            navPage(countPage){
-                fetch('../services/news/getNews.php?pages='+countPage)
-                .then(response => response.json())
-                .then((data)=>{
-                    this.content = data
-                })
-                .catch(error => console.log(error));
-             
-            }
+          
         }
     })
     app.mount("#wrapper")

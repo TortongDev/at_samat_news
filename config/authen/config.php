@@ -1,11 +1,14 @@
 <?php
+    // $referrer = isset( $_SERVER['HTTP_REFERER']) ?  $_SERVER['HTTP_REFERER'] : ''; 
 
-    // อ่านข้อมูลจากไฟล์ .env
-    require_once dirname(__DIR__)."/../vendor/autoload.php";
-    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
-    $dotenv->load();
-
-    define("PRIVATE_KEY",$_ENV['PRIVATE_KEY']);
-    define("IV",$_ENV['IV']);
     
+    // if($referrer === @$_SERVER['HTTP_REFERER'] || $referrer.'index.php' === @$_SERVER['HTTP_REFERER']):
+    //     echo "referrer".' '.$referrer.'<br>';
+    //     echo "HTTP_REFERER".' '.@$_SERVER['HTTP_REFERER'].'<br>';
+    //     echo "referrer1".' '.$referrer.'index.php'.'<br>';
+    //     echo "HTTP_REFERER1".' '.@$_SERVER['HTTP_REFERER'].'<br>';
+    // else:
+    //     exit;
+    // endif;
+
 ?>

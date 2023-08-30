@@ -1,12 +1,8 @@
 <?php
-;
-$HTTP_REFERER = 'http://localhost/atsamat/at_samat_news/webpage/';
-$HTTP_REFERER1 = 'http://localhost/atsamat/at_samat_news/webpage/index.php';
-if(@$_SERVER['HTTP_REFERER'] === $HTTP_REFERER || @$_SERVER['HTTP_REFERER'] === $HTTP_REFERER1){
+$HTTP_REFERER = 'localhost';
+if(@$_SERVER['SERVER_NAME'] === $HTTP_REFERER){
     http_response_code(200);
-    
 }else{
-    http_response_code(400);
     exit;
 }
 $menu = array (
@@ -15,7 +11,7 @@ $menu = array (
         "url_redirect" => "index.php"
     ),
     array(
-        "menu"         =>"ข่าวสารอาจสามารถ"   ,
+        "menu"         =>"ข่าวสารอาจสามารถ",
         "url_redirect" => "index1.php"
     ),
     array(
