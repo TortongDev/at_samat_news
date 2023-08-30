@@ -5,5 +5,5 @@
     $dotenv->load();
 
     define("PRIVATE_KEY",$_ENV['PRIVATE_KEY']);
-
+    define("IV",$_ENV['IV']);
 ?>

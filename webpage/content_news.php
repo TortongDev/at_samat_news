@@ -28,20 +28,18 @@
                 <?php
                     require_once "../config/key/config.php";
                     $newID = isset($_GET['newID']) ? $_GET['newID'] : '';
-                    echo  $newID;
-                    $signature = base64_decode(hash_hmac('sha256',$newID,'PRIVATE_KEY',true));
-                    // $encrypted =  base64_encode(hash_hmac('sha256',$r['NEW_ID'], PRIVATE_KEY , true));
-                    echo $signature;
-                
+                    $tag = null;
+                    $decrypt =  openssl_decrypt($r['NEW_ID'],'aes-128-gcm', PRIVATE_KEY , OPENSSL_RAW_DATA, IV ,$tag);
+                    echo $decrypt;
                 ?>
-                
                 <article>
-                    <div class="topic"> <h5>อัพเดทล่าสุด <?php echo date('d/m/Y'); ?></h5></div>
+                    
+                    <div class="topic"> <h5>อัพเดทล่าสุด <?php //echo date('d/m/Y'); ?></h5></div>
+
                     <section class="content-new">
                        
                     </section>
                 </article>
-                
             </div>
         </main>
         <?php include "./footer.php"; ?>

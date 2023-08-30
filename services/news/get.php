@@ -1,17 +1,12 @@
-
-<meta charset="utf-8">
 <?php
 
-$s1 = hash_hmac('sha256','1233f','1212121',true);
-$s1 = base64_encode($s1);
-echo $s1; //KH7TGLVG+k8TToayZULu9XlXwagpEnY+ZmGTaPAP6oE=
-echo "<br>";
-
-$s2 = hash_hmac('sha256','KH7TGLVG+k8TToayZULu9XlXwagpEnY+ZmGTaPAP6oE=','1212121',true);
-$s2 = base64_decode($s2);
-echo $s2; //����
-echo "<br>";
-
-
-
+$key = '1212121';
+$data = "tokenapi1";
+$iv = 'asdfgh1234567890';
+$tag = null;
+$ssl = openssl_encrypt($data,'aes-128-gcm',$key,OPENSSL_RAW_DATA, $iv,$tag);
+$ssl = base64_encode($ssl);
+echo $ssl;
+$ssl1 = openssl_decrypt(base64_decode($ssl),'aes-128-gcm',$key,OPENSSL_RAW_DATA, $iv,$tag);
+echo $ssl1;
 ?>

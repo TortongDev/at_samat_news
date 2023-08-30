@@ -30,13 +30,13 @@
         $stmt = $get->pdo->prepare("SELECT * FROM `samat_news` WHERE ? LIMIT 5 offset {$page}");
         $stmt->execute(array("1=1"));
     endif;
-    $secret_key = "getter";
     $arrJsonData = array();
+    $tag = null;
     while ($r = $stmt->fetch(PDO::FETCH_ASSOC)) {
-        $encrypted =  base64_encode(hash_hmac('sha256',$r['NEW_ID'], 'PRIVATE_KEY' , true));
+        $encrypted = openssl_encrypt($r['NEW_ID'],'aes-128-gcm', PRIVATE_KEY , OPENSSL_RAW_DATA, IV ,$tag);
         $arrJsonData[] = array( 
             'NEW_ID'            => $r['NEW_ID'],
-            'NEW_ID_ENCYPT'     => $encrypted,
+            'NEW_ID_ENCYPT'     => base64_encode($encrypted),
             'NEW_TOPIC'         => $r['NEW_TOPIC'],
             'NEW_SUB_TOPIC'     => $r['NEW_SUB_TOPIC'],
             'NEW_TEXT'          => $r['NEW_TEXT'],
@@ -46,8 +46,8 @@
             'AUTHEN_ADMIN_ID'   => $r['AUTHEN_ADMIN_ID']
         );
     }
-    $inputShell = date('y/m/d').' => request api.';
-    $shell = exc_shell("echo $inputShell > requestAPINews.txt");
+    // $inputShell = date('y/m/d').' => request news api.';
+    // $shell = exc_shell("echo $inputShell >> requestAPINews.txt");
     echo json_encode($arrJsonData);
 
 
