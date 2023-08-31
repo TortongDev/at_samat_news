@@ -49,21 +49,21 @@
                 
             }
         },mounted() {
+            // fetch news
             fetch('../services/news/getNews.php?page='+this.page)
             .then(response => response.json())
             .then((data)=>{
                 this.content = data
             })
             .catch(error => console.log(error));
-
+            // fetch news popular aside
             fetch('../services/news/getNewsPopular.php')
             .then(response => response.json())
             .then((data)=>{
                 this.news_popular = data
             })
             .catch(error => console.log(error));
-
-
+            // fetch menu
            fetch('../config/json/menu.php')
             .then(response => response.json())
             .then((data)=>{
@@ -73,7 +73,6 @@
 
 
         },methods: {
-           
             navPage(countPage){
                 fetch('../services/news/getNews.php?pages='+countPage)
                 .then(response => response.json())
