@@ -44,36 +44,39 @@
     <div id="wrapper">
         <?php include "./header.php"; ?>
         <main>
-    
-            <div class="header-title"  v-for="item in content">
-                {{ item }}
-                <h3>{{item.NEW_TOPIC}}</h3>
-                <h6>{{item.NEW_SUB_TOPIC}}</h6>
+            <?php
+                    $newID          = isset($_GET['newID']) ? $_GET['newID'] : '';
+                    $ID_Decrypt     = decrypt_code(base64_decode($newID),PRIVATE_KEY,IV);
+                    $db = new Connection(true);
+                    $new = $db->pdo->prepare("SELECT * FROM `samat_news` WHERE ? AND NEW_ID = ?");
+                    $new->execute(array("1=1", $ID_Decrypt ));
+                
+            ?>
+            <?php while ($r = $new->fetch(PDO::FETCH_ASSOC)): ?>
+            <div class="header-title">
+                <h3><?php echo $r['NEW_TOPIC'];?></h3>
+                <h6><?php echo $r['NEW_SUB_TOPIC']; ?></h6>
             </div>
+               
             <article>
                 <div class="topic"> 
-                    <h5> วันที่ลงข่าว : {{SAMAT_TIMESTAMP}}</h5>
+                    <h5> วันที่ลงข่าว : <?php echo $r['SAMAT_TIMESTAMP']; ?></h5>
                     
                 </div>
-                <h6 class="sub-topic" >เขียนข่าวโดย : {{NEW_SIGNATURE}}</h6>
+                <h6 class="sub-topic" >เขียนข่าวโดย : <?php echo $r['NEW_SIGNATURE']; ?></h6>
                 <section id="wrapper-new">
 
-                    {{NEW_TEXT}}
+                    <?php echo $r['NEW_TEXT']; ?>
 
                     <div class="card">
                         <div class="card-header">กล่องแสดงข้อความ</div>
-                        <div class="cord-body">
-                            <?php
-                                $post_list =  $db->pdo->prepare("SELECT * FROM `samat_comment` WHERE ? AND NEW_ID = ? ORDER BY COMMENT_TIMESTAMP DESC");
-                                $post_list->execute(array("1=1",$ID_Decrypt));
-                                while($c = $post_list->fetch(PDO::FETCH_ASSOC)):  
-                            ?>
+                        <div class="cord-body"   style="height: 400px;overflow: auto;">
+                          
                                 <p>
                                     <ul>
-                                        <li><span class="bg-success text-light">คุณอ้อ : </span>&nbsp;<?php echo $c['COMMENT_TEXT'];?></li>
+                                        <li  v-for="item in message" :key="index"><span class="bg-success text-light">{{ item.ID }}</span> : {{ item.TEXT }}</li>
                                     </ul>
                                 </p>
-                            <?php endwhile; ?>
                         </div>
                     </div><br>
                     <form action="post" @submit.prevent="postMessage()">
@@ -92,6 +95,7 @@
             </article>
                
                     
+            <?php endwhile; ?>
         
       
         </main>
@@ -106,7 +110,8 @@
                 menu: '',
                 comment: 'hello',
                 userid: '',
-                content:'<?php echo $newID;?>'
+                content:'<?php echo $ID_Decrypt ;?>',
+                message:''
                 
             }
         },mounted() {
@@ -118,11 +123,11 @@
             })
             .catch(error => console.log(error));
 
-            fetch('../services/news/getContent.php?newID='+this.content)
+            fetch('../services/news/resetMessage.php?newid='+this.content)
             .then(response => response.json())
             .then((data)=>{
-                this.content = data
-                console.log(this.content);
+                this.message = data
+                console.log(this.message);
             })
             .catch(error => console.log(error));
         },methods: {
@@ -137,7 +142,15 @@
             formData.append('newid',this.newid)
             axios.post('../services/news/postMessage.php',formData)
            
-            .then(response => console.log(response))
+            .then((response) => {
+                fetch('../services/news/resetMessage.php?newid='+this.content)
+                .then(response => response.json())
+                .then((data)=>{
+                    this.message = data
+                    console.log(this.message);
+                })
+                .catch(error => console.log(error));
+            })
             .catch(error => console.log(error));
         },
     },

@@ -59,6 +59,13 @@ main {
     grid-template-columns: 1fr 370px;
     grid-gap: 20px;
 }
+.card {    min-height: 300px; /* ปรับขนาดตามที่ต้องการ */}
+.wrapper-new {
+    min-height: 600px; /* ปรับขนาดตามที่ต้องการ */
+    display: flex;
+    flex-direction: row;
+    clear: both;
+}
 section.content-new {
     display: grid;
     grid-template-columns: 200px 1fr;
