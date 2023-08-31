@@ -26,11 +26,11 @@
             </div>
             <div class="wrapper-content">
                 <?php include "./mainpage.php"; ?>
-                
-                
                 <?php include "./aside.php"; ?>
-                
             </div>
+            <?php
+                include "./banner.php";
+            ?>
         </main>
         <?php include "./footer.php"; ?>
     </div>
@@ -45,7 +45,7 @@
                 menu: '',
                 content: '',
                 news_popular: '',
-                page:''
+                page:'',
                 
             }
         },mounted() {

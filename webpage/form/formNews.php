@@ -56,7 +56,11 @@
             <?php // include "./mainpage.php";  ?>
             <article>
                 <div class="topic"> <h5>ฟอร์มบันทึก</h5></div>
-                <form action="../../services/news/setNews.php" method="post">
+                <form action="../../services/news/setNews.php" method="post"  enctype="multipart/form-data">
+                <div class="form-group">
+                        <label for="NEW_PROFILE">โปรไฟล์ข่าว</label>
+                        <input type="file" class="form-control" name="NEW_PROFILE" id="NEW_PROFILE">
+                    </div>
                     <div class="form-group">
                         <label for="NEW_TOPIC">หัวข้อข่าว</label>
                         <input type="text" class="form-control" name="NEW_TOPIC" id="NEW_TOPIC">

@@ -1,6 +1,9 @@
 <?php
     require_once "../../autoload_class.php";
     require_once "../../config/key/config.php";
+    require_once "../../config/key/byepass_code.php";
+
+    
 
     if(
         @$_SERVER['HTTP_REFERER'] === 'http://localhost/atsamat/at_samat_news/webpage/index.php' 
@@ -24,27 +27,28 @@
         $page = ($setpage*$pageNumber)+1;
     }
     if($setpage < 1 ):
-        $stmt = $get->pdo->prepare("SELECT * FROM `samat_news` WHERE ? LIMIT 5 offset 0");
+        $stmt = $get->pdo->prepare("SELECT * FROM `samat_news` WHERE ? ORDER BY SAMAT_TIMESTAMP DESC LIMIT 5 offset 0");
         $stmt->execute(array("1=1"));
     else:
-        $stmt = $get->pdo->prepare("SELECT * FROM `samat_news` WHERE ? LIMIT 5 offset {$page}");
+        $stmt = $get->pdo->prepare("SELECT * FROM `samat_news` WHERE ? ORDER BY SAMAT_TIMESTAMP DESC LIMIT 5 offset {$page} ");
         $stmt->execute(array("1=1"));
     endif;
     $arrJsonData = array();
-    $tag = null;
+    $tag = "";
+    $encrypted = "";
     while ($r = $stmt->fetch(PDO::FETCH_ASSOC)) {
-        $encrypted = openssl_encrypt($r['NEW_ID'], 'aes-128-gcm', PRIVATE_KEY , OPENSSL_RAW_DATA, IV ,$tag);
+        // encrypt_code();
         $arrJsonData[] = array( 
             'NEW_ID'            => $r['NEW_ID'],
-            
-            'NEW_ID_ENCYPT'     => base64_encode($encrypted),
+            'NEW_ID_ENCYPT'     => base64_encode(encrypt_code($r['NEW_ID'],PRIVATE_KEY,IV)),
             'NEW_TOPIC'         => $r['NEW_TOPIC'],
             'NEW_SUB_TOPIC'     => $r['NEW_SUB_TOPIC'],
             'NEW_TEXT'          => $r['NEW_TEXT'],
             'NEW_TAG'           => $r['NEW_TAG'],
             'NEW_LIKE'          => $r['NEW_LIKE'],
             'SAMAT_TIMESTAMP'   => $r['SAMAT_TIMESTAMP'],
-            'AUTHEN_ADMIN_ID'   => $r['AUTHEN_ADMIN_ID']
+            'AUTHEN_ADMIN_ID'   => $r['AUTHEN_ADMIN_ID'],
+            'NEW_PROFILE'       => $r['NEW_PROFILE']
         );
     }
     // $inputShell = date('y/m/d').' => request news api.';
