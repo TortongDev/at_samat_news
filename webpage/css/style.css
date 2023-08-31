@@ -162,4 +162,9 @@ section.banner {
     align-items: center;
     flex-direction: column;
 }
-
+.wrapper-banner section:nth-child(1) {
+    color: rgb(234, 21, 96);
+    background-image: url('https://www.gotoloei.com/data/content/557359/thumb/img_display.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}

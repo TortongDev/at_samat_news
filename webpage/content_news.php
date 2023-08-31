@@ -44,29 +44,21 @@
     <div id="wrapper">
         <?php include "./header.php"; ?>
         <main>
-            <?php
-                    $newID          = isset($_GET['newID']) ? $_GET['newID'] : '';
-                    $ID_Decrypt     = decrypt_code(base64_decode($newID),PRIVATE_KEY,IV);
-                    $db = new Connection(true);
-                    $new = $db->pdo->prepare("SELECT * FROM `samat_news` WHERE ? AND NEW_ID = ?");
-                    $new->execute(array("1=1", $ID_Decrypt ));
-                
-            ?>
-            <?php while ($r = $new->fetch(PDO::FETCH_ASSOC)): ?>
-            <div class="header-title">
-                <h3><?php echo $r['NEW_TOPIC'];?></h3>
-                <h6><?php echo $r['NEW_SUB_TOPIC']; ?></h6>
+    
+            <div class="header-title"  v-for="item in content">
+                {{ item }}
+                <h3>{{item.NEW_TOPIC}}</h3>
+                <h6>{{item.NEW_SUB_TOPIC}}</h6>
             </div>
-               
             <article>
                 <div class="topic"> 
-                    <h5> วันที่ลงข่าว : <?php echo $r['SAMAT_TIMESTAMP']; ?></h5>
+                    <h5> วันที่ลงข่าว : {{SAMAT_TIMESTAMP}}</h5>
                     
                 </div>
-                <h6 class="sub-topic" >เขียนข่าวโดย : <?php echo $r['NEW_SIGNATURE']; ?></h6>
+                <h6 class="sub-topic" >เขียนข่าวโดย : {{NEW_SIGNATURE}}</h6>
                 <section id="wrapper-new">
 
-                    <?php echo $r['NEW_TEXT']; ?>
+                    {{NEW_TEXT}}
 
                     <div class="card">
                         <div class="card-header">กล่องแสดงข้อความ</div>
@@ -100,7 +92,6 @@
             </article>
                
                     
-            <?php endwhile; ?>
         
       
         </main>
@@ -114,7 +105,8 @@
             return {
                 menu: '',
                 comment: 'hello',
-                userid: ''
+                userid: '',
+                content:'<?php echo $newID;?>'
                 
             }
         },mounted() {
@@ -123,6 +115,14 @@
             .then(response => response.json())
             .then((data)=>{
                 this.menu = data
+            })
+            .catch(error => console.log(error));
+
+            fetch('../services/news/getContent.php?newID='+this.content)
+            .then(response => response.json())
+            .then((data)=>{
+                this.content = data
+                console.log(this.content);
             })
             .catch(error => console.log(error));
         },methods: {
