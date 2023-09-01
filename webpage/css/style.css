@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Niramit:ital,wght@0,200;0,300;0,400;0,500;1,200;1,300;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@100;200;300;400;500&display=swap');
 :root {
     --bg: rgb(255, 255, 255);
     --bg_wrapper: rgb(255, 255, 255);
@@ -9,7 +9,7 @@ html,body {
     min-height: 100vh;
     margin: 0;
     background-color: var(--bg);
-    font-family: 'Niramit', sans-serif;
+    font-family: 'Noto Serif Thai', serif;
 }
 #wrapper {
     background-color: var(--bg);
@@ -174,4 +174,7 @@ section.banner {
     background-image: url('https://www.gotoloei.com/data/content/557359/thumb/img_display.jpg');
     background-repeat: no-repeat;
     background-size: cover;
+}
+.mr-top-100 {
+    margin-top: 100px !important;
 }

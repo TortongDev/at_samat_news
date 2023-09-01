@@ -1,3 +1,8 @@
+<?php
+    require_once "../../services/authen/authen.php";
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -83,7 +88,7 @@
                     </div> -->
                     <div class="form-group">
                         <label for="NEW_TEXT">Editor</label>
-						 <textarea name="NEW_TEXT" id="NEW_TEXT" style="width: 100%;" class="form-control"></textarea>
+						 <textarea name="NEW_TEXT" id="NEW_TEXT" style="width: 100%; overflow: auto;" class="form-control"></textarea>
                     </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary">บันทึกข้อมูล</button>
@@ -99,13 +104,23 @@
     </div>
 </body>
 <script type="text/javascript">
-   
-   bkLib.onDomLoaded(function() 
-     { 
-       nicEditors.allTextAreas({
-       }) 
-     }
-   );
+   bkLib.onDomLoaded(function() {
+        nicEditors.allTextAreas({
+            uploads: {
+            customFieldName: 'image', // ชื่อฟิลด์ที่ใช้สำหรับรับรูปภาพ
+            maxFileSize: 1024 * 1024, // ขนาดรูปภาพสูงสุด (ในไบต์)
+            imagesExtensions: ['jpg', 'jpeg', 'png', 'gif'], // ส่วนขยายไฟล์รูปภาพที่ยอมรับ
+            onComplete: function (url) {
+                console.log('sssss');
+            },
+            onError: function (errMsg) {
+            // ฟังก์ชันที่เรียกเมื่อมีข้อผิดพลาดในกระบวนการอัพโหลด
+            // errMsg คือข้อความข้อผิดพลาด
+            }
+            }
+         });
+    });
+
 </script>
 <script
     src="https://code.jquery.com/jquery-3.6.0.min.js"

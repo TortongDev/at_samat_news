@@ -68,7 +68,8 @@
 
                     <?php echo $r['NEW_TEXT']; ?>
 
-                    <div class="card">
+                    <br><br>
+                    <div class="card mr-top-100" >
                         <div class="card-header">กล่องแสดงข้อความ</div>
                         <div class="cord-body"   style="height: 400px;overflow: auto;">
                           

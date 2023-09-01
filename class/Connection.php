@@ -1,7 +1,8 @@
 <?php
     require_once dirname(dirname(__FILE__))."\config\db\config.php";
 
-    class Connection {
+    class Connection 
+    {
         public $HOSTNAME = HOSTNAME;
         public $USERNAME = USERNAME;
         public $PASSWORD = PASSWORD;
@@ -30,7 +31,9 @@
                 endif;
                 
             } catch (PDOException $err) {
+                
                 echo $err->getMessage();
+                header("Location: http://localhost/atsamat/at_samat_news/webpage/page_500.php");
             } finally {
             }
         }
@@ -39,22 +42,29 @@
         {
             $this->pdo = null;
         }
-        public function db_insert($sql,$value = []){
+        
+        public function db_insert($sql,$value = [])
+        {
             $stmt_insert  = $this->pdo->prepare($sql);
             $stmt_insert->execute($value);
-            return json_encode(array('status'=>'insert success'));
+            return json_encode(array('status' => 'insert success'));
         }
-        public function db_update($sql,$value = []){
+        
+        public function db_update($sql,$value = [])
+        {
             $stmt_insert  = $this->pdo->prepare($sql);
             $stmt_insert->execute($value);
-            return json_encode(array('status'=>'update success'));
+            return json_encode(array('status' => 'update success'));
         }
-        public function db_query($sql,$key_search = []){
+        
+        public function db_query($sql,$key_search = [])
+        {
             $stmt_query  = $this->pdo->prepare($sql);
             $stmt_query->execute($key_search);
             $stmt_query = $stmt_query->fetchAll();
             return $stmt_query;
         }
+
     }
-new Connection(true);
+// new Connection(true);
 ?>

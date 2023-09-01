@@ -1,0 +1,19 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/codemirror.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/codemirror.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/mode/javascript/javascript.min.js"></script>
+<textarea id="code"></textarea>
+<script>
+    // Initialize CodeMirror on the textarea element
+    var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+      mode: "javascript", // Set the programming language mode
+      lineNumbers: true,  // Show line numbers
+      theme: "default"    // Choose a theme (e.g., "default" or "monokai")
+    });
+  
+    // You can also set the initial code content
+    editor.setValue("console.log('Hello, CodeMirror!');");
+    var codeContent = editor.getValue();
+    console.log(codeContent);
+
+  </script>
+  
